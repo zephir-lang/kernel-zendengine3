@@ -1,5 +1,5 @@
-/*
- * This file is part of the Zend Engine 3 Zephir Kernel.
+/**
+ * This file is part of the Zephir.
  *
  * (c) Phalcon Team <team@zephir-lang.com>
  *
@@ -32,8 +32,8 @@
 /**
  * Filter alphanum string
  */
-void zephir_filter_alphanum(zval *return_value, zval *param) {
-
+void zephir_filter_alphanum(zval *return_value, zval *param)
+{
 	unsigned int i;
 	unsigned char ch;
 	smart_str filtered_str = {0};
@@ -75,7 +75,6 @@ void zephir_filter_alphanum(zval *return_value, zval *param) {
  */
 void zephir_is_basic_charset(zval *return_value, const zval *param)
 {
-
 	unsigned int i;
 	unsigned int ch;
 	int iso88591 = 0;
@@ -119,8 +118,8 @@ static long zephir_unpack(char *data, int size, int issigned, int *map)
 /**
  * Converts an unsigned long to a char*
  */
-static inline char *zephir_longtohex(unsigned long value) {
-
+static inline char *zephir_longtohex(unsigned long value)
+{
 	static char digits[] = "0123456789abcdef";
 	char buf[(sizeof(unsigned long) << 3) + 1];
 	char *ptr, *end;
@@ -140,7 +139,6 @@ static inline char *zephir_longtohex(unsigned long value) {
  */
 void zephir_escape_multi(zval *return_value, zval *param, const char *escape_char, unsigned int escape_length, char escape_extra, int use_whitelist)
 {
-
 	unsigned int i;
 	zval copy;
 	smart_str escaped_str = {0};
@@ -210,7 +208,7 @@ void zephir_escape_multi(zval *return_value, zval *param, const char *escape_cha
 		/**
 		 * Alphanumeric characters are not escaped
 		 */
-		if (value < 256 && isalnum(value)) {
+		if (value < 123 && isalnum(value)) {
 			smart_str_appendc(&escaped_str, (unsigned char) value);
 			continue;
 		}

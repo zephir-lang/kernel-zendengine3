@@ -1,5 +1,5 @@
-/*
- * This file is part of the Zend Engine 3 Zephir Kernel.
+/**
+ * This file is part of the Zephir.
  *
  * (c) Phalcon Team <team@zephir-lang.com>
  *

@@ -1,5 +1,5 @@
-/*
- * This file is part of the Zend Engine 3 Zephir Kernel.
+/**
+ * This file is part of the Zephir.
  *
  * (c) Phalcon Team <team@zephir-lang.com>
  *
@@ -54,8 +54,14 @@ void zephir_throw_exception_debug(zval *object, const char *file, uint32_t line)
 		zephir_check_call_status();
 		if (ZEPHIR_IS_LONG(&curline, 0)) {
 			default_exception_ce = zend_exception_get_default();
+
+#if PHP_VERSION_ID >= 80000
+			zend_update_property_string(default_exception_ce, Z_OBJ_P(object), SL("file"), file);
+			zend_update_property_long(default_exception_ce, Z_OBJ_P(object), SL("line"), line);
+#else
 			zend_update_property_string(default_exception_ce, object, SL("file"), file);
 			zend_update_property_long(default_exception_ce, object, SL("line"), line);
+#endif
 		}
 	}
 
@@ -82,8 +88,13 @@ void zephir_throw_exception_string_debug(zend_class_entry *ce, const char *messa
 
 	if (line > 0) {
 		default_exception_ce = zend_exception_get_default();
+#if PHP_VERSION_ID >= 80000
+		zend_update_property_string(default_exception_ce, Z_OBJ(object), "file", sizeof("file")-1, file);
+		zend_update_property_long(default_exception_ce, Z_OBJ(object), "line", sizeof("line")-1, line);
+#else
 		zend_update_property_string(default_exception_ce, &object, "file", sizeof("file")-1, file);
 		zend_update_property_long(default_exception_ce, &object, "line", sizeof("line")-1, line);
+#endif
 	}
 
 	if (ZEPHIR_LAST_CALL_STATUS != FAILURE) {
